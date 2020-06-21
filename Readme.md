@@ -37,7 +37,7 @@ In order to delete old ACME TXT entries, you can use following command
 python3 hetznerdnshook.py --delete domain.de
 ```
 
-**Keep in mind to deplace domain.de with your own domain!**
+**Keep in mind to replace domain.de with your own domain!**
 
 ## Todos
 Comment will be added in the next few days.
