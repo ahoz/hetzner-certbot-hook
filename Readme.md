@@ -29,6 +29,15 @@ This line can also be used for automated calls like inside cron scripts.
 sudo certbot certonly  --manual --preferred-challenges dns --manual-auth-hook ./hetznerdnshook.py -d domain.de -d *.domain.de --dry-run --agree-tos  --manual-public-ip-logging-ok
 ```
 
+### Delete old TXT Entries
+
+In order to delete old ACME TXT entries, you can use following command
+
+```bash
+python3 hetznerdnshook.py --delete domain.de
+```
+
+**Keep in mind to deplace domain.de with your own domain!**
 
 ## Todos
 Comment will be added in the next few days.

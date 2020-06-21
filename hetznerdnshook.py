@@ -153,6 +153,6 @@ if __name__ == "__main__":
             for domain in sys.argv[2:]:
                 delete_le_txt_records(domain)
         else:
-            print("Use to delete old records: python3 script.py --delete <DOMAINNAME>")
+            print("Use to delete old records: python3 hetznerdnshook.py --delete <DOMAINNAME>")
     else:
         main()
