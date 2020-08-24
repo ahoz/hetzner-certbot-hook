@@ -60,6 +60,18 @@ def get_tld(domain):
         _EXITCODE=6
         return -1
 
+def get_sub(domain):
+    try:
+        return re.search(r"((\w+\.)*)?\w+\.\w+$", domain.strip()).group(1)[:-1]
+    except:
+        _EXITCODE=6
+        return -1
+
+def get_key(sub):
+    if len(sub) > 0:
+        sub = "." + sub
+    return "_acme-challenge" + sub
+
 def exit_check():
     if _EXITCODE > 0:
         if _EXITCODE == 2:
@@ -71,7 +83,7 @@ def exit_check():
         elif _EXITCODE == 5:
             raise Exception('Create TXT Record HTTP Request failed')
         elif _EXITCODE == 6:
-            raise Exception('Could not extract domain')
+            raise Exception('Could not extract (sub)domain')
         elif _EXITCODE == 7:
             raise Exception('Could not read config file!')
         elif _EXITCODE == 8:
@@ -82,7 +94,7 @@ def exit_check():
 def read_config():
     try:
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        config.read(os.path.dirname(os.path.abspath(__file__)) + '/config.ini')
         return config
     except:
          _EXITCODE=7
@@ -109,7 +121,7 @@ def get_all_le_txt_records(api_token, zone_id):
     all_txt_records = get_all_records(api_token, zone_id)
     records_list = list()
     for record in all_txt_records['records']:
-        if record['type'] == "TXT" and record['name'] == "_acme-challenge":
+        if record['type'] == "TXT" and record['name'][:15] == "_acme-challenge":
             records_list.append(record)
     return records_list
 
@@ -139,8 +151,9 @@ def main():
     config = read_config()
     hdns_api_token = config['DEFAULT']['hdns_api_token']
     domain = get_tld(os.environ["CERTBOT_DOMAIN"])
+    sub = get_sub(os.environ["CERTBOT_DOMAIN"])
     zone_id = get_zone_id(hdns_api_token, domain)
-    key = "_acme-challenge"
+    key = get_key(sub)
     key_value = os.environ["CERTBOT_VALIDATION"]
     sleep_time = 15
     exit_check()
