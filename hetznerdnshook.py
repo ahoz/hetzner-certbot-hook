@@ -55,7 +55,7 @@ def create_txt_record(api_token, zone_id, record_key, record_value):
 
 def get_tld(domain):
     try:
-        return re.search(r"(\w+\.\w+)$", domain.strip()).group(1)
+        return re.search(r"^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$", domain.strip()).group(0)
     except:
         _EXITCODE=6
         return -1
