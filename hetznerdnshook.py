@@ -10,7 +10,7 @@ def get_zone_id(api_token, zone_name):
         _EXITCODE=2
         return False
     for zone in zones_resp['zones']:
-        if zone['name'] == zone_name:
+        if zone_name.endswith(zone['name']):
             return zone['id']
     print("Zone not found")
     _EXITCODE=3
@@ -62,7 +62,7 @@ def get_tld(domain):
 
 def get_sub(domain):
     try:
-        return re.search(r"((\w+\.)*)?\w+\.\w+$", domain.strip()).group(1)[:-1]
+        return re.search(r"(([\w'-]+\.)*)?[\w'-]+\.\w+$", domain.strip()).group(1)[:-1]
     except:
         _EXITCODE=6
         return -1
