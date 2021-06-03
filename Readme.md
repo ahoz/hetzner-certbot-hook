@@ -38,6 +38,3 @@ python3 hetznerdnshook.py --delete domain.de
 ```
 
 **Keep in mind to replace domain.de with your own domain!**
-
-## Todos
-Comment will be added in the next few days.
