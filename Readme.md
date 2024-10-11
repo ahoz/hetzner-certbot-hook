@@ -9,9 +9,17 @@
 
 ## Set config
 
-Move *config.ini.example* to *config.ini*.
+1. Move *config.ini.example* to *config.ini*.
 
-Set Api token.
+2. Get a Hetzner [DNS API Token](https://dns.hetzner.com/settings/api-token)
+
+3. Set Api token in `config.ini`:
+```
+[DEFAULT]
+hdns_api_token = yourToken
+```
+4. make the script executable:
+`chmod +x hetznerdnshook.py` or else certbot will throw an error.
 
 ## Usage
 
